@@ -1,0 +1,36 @@
+设置按钮图标
+icon=QIcon('图片路径')
+按钮.setIcon(icon)
+
+
+设置按钮图标大小(会把按钮尺寸撑大）
+size=Qsize(50,50)
+按钮.setIconSize(size)
+
+
+
+设置快捷键
+1有提示文本的：按钮.setText("&Xbc")--->按钮显示的文本是Xbc，按alt+X（X可以为任意）就触发点击
+2没有提示文本的：按钮.setShortcut（"Alt+a")--->按钮不显示文本，按Alt+a即可触发点击
+
+
+自动重复(获取去掉set）
+setAutoRepeat(bool)  设置自动重复
+setAutoRepeatInterval(毫秒)  设置自动重复检测间隔
+setAutoRepeatDelay(毫秒)  设置初次检测延迟
+
+
+状态
+isDown()按钮是否被按下
+setDown(bool)设置按钮是否被按下
+
+isChecked()是否选中了按钮
+isCheckable(bool)设置按钮是否可以被选中
+setChecked(bool)设置按钮，是否被选中
+                        
+
+排他性
+如果同时存在多个按钮, 而此时所有按钮又设置了排他性,
+则在同一时刻只能选中一个按钮
+按钮.autoExclusive() 是否自动排他。一般按钮都是False, 只有单选按钮是True
+setAutoExclusive(bool) 设置自动排他
