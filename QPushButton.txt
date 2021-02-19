@@ -1,0 +1,14 @@
+QPushButton
+
+创建
+QPushButton(icon, text, parent)
+	创建控件的同时, 设置图标, 提示文本和父控件
+
+
+菜单
+setMenu(QMenu)
+	设置菜单
+menu()
+	获取菜单
+showMenu()
+	展示菜单
