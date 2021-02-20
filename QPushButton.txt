@@ -12,3 +12,57 @@ menu()
 	获取菜单
 showMenu()
 	展示菜单
+
+
+	添加子菜单
+		addMenu(QMenu)
+	添加分割线
+		addSeparator()
+QMenu	添加行为动作
+		addAction(QAction)
+	QMenu控件设置
+		setTitle(str)
+		setIcon(QIcon)
+
+	QAction设置
+		setText(str)
+		setIcon(QIcon)
+		信号
+			triggered
+例题：
+
+menu=QMenu()
+
+new_action=QAction(QIcon('1.jpg'),'新建',menu)
+new_action.triggered.connect(lambda :print('新建'))
+
+open_action=QAction('打开',menu)
+open_action.triggered.connect(lambda :print('打开'))
+
+exit_action=QAction('退出',menu)
+exit_action.triggered.connect(lambda :print('退出'))
+
+child_menu=QMenu(menu)
+child_menu.setTitle('最近打开')
+file_action=QAction('打开你大爷')
+child_menu.addAction(file_action))
+
+menu.addAction(new_action)
+menu.addAction(open_action)
+menu.addMenu(child_menu)
+menu.addSeparator()
+menu.addAction(exit_action)
+
+push_btn.setMenu(menu)
+
+
+
+setFlat(bool)
+	默认值为False
+	设置了此属性，则除非按下按钮，否则大多数样式都不会绘制按钮背景
+
+setAutoDefault(bool)
+	设置为自动默认按钮
+	在某些GUI样式中，默认按钮被绘制，其周围有一个额外的框架，最多3个像素或更多。
+	Qt会自动在自动默认按钮周围保留此空间，即自动默认按钮可能会有稍大的提示
+	对于具有QDialog父级的按钮，此属性的默认值为true ; 否则默认为false。
