@@ -66,3 +66,104 @@ setAutoDefault(bool)
 	在某些GUI样式中，默认按钮被绘制，其周围有一个额外的框架，最多3个像素或更多。
 	Qt会自动在自动默认按钮周围保留此空间，即自动默认按钮可能会有稍大的提示
 	对于具有QDialog父级的按钮，此属性的默认值为true ; 否则默认为false。
+        某个按钮被点击后，这个按钮就被设置成自动默认按钮
+
+setDefault(bool)  直接把某个按钮设置成默认按钮
+
+
+customContextMenuRequested(QPoint)
+	自定义上下文菜单请求信号
+		setContextMenuPolicy(Qt.CustomContextMenu)
+		Qt.DefaultContextMenu
+			调用对象方法contextMenuEvent()
+		Qt.CustomContextMenu
+			发射信号
+
+windowTitleChanged(QString)
+	窗口标题改变信号
+windowIconChanged(QIcon)
+	窗口图标改变信号
+customContextMenuRequested(QPoint)
+	自定义上下文菜单请求信号
+		setContextMenuPolicy(Qt.CustomContextMenu)
+		Qt.DefaultContextMenu
+			调用对象方法contextMenuEvent()
+		Qt.CustomContextMenu
+			发射信号
+
+右键窗口跳出来菜单：方法1重写contextMenuEvent()
+class Window(QWidget):
+    def contextMenuEvent(self, evt):
+        print("默认上下文菜单调用这个方法")
+        menu = QMenu(self)
+
+        # 子菜单 最近打开
+
+        open_recent_menu = QMenu(menu)
+        open_recent_menu.setTitle("最近打开")
+        # open_recent_menu.setIcon()
+
+        # 行为动作 新建  打开  分割线 退出
+        # new_action = QAction()
+        # new_action.setText("新建")
+        # new_action.setIcon(QIcon("xxx.png"))
+        new_action = QAction(QIcon("xxx.png"), "新建", menu)
+        new_action.triggered.connect(lambda: print("新建文件"))
+
+        open_action = QAction(QIcon("xxx.png"), "打开", menu)
+        open_action.triggered.connect(lambda: print("打开文件"))
+
+        exit_action = QAction("退出", menu)
+        exit_action.triggered.connect(lambda: print("退出程序"))
+
+        file_action = QAction("Python-GUI编程-PyQt5")
+
+        menu.addAction(new_action)
+        menu.addAction(open_action)
+        open_recent_menu.addAction(file_action)
+        menu.addMenu(open_recent_menu)
+        menu.addSeparator()
+        menu.addAction(exit_action)
+
+        # point
+        menu.exec_(evt.globalPos())
+      
+
+方法2
+def show_menu(point):
+    menu = QMenu(window)
+
+    # 子菜单 最近打开
+
+    open_recent_menu = QMenu(menu)
+    open_recent_menu.setTitle("最近打开")
+    # open_recent_menu.setIcon()
+
+    # 行为动作 新建  打开  分割线 退出
+    # new_action = QAction()
+    # new_action.setText("新建")
+    # new_action.setIcon(QIcon("xxx.png"))
+    new_action = QAction(QIcon("xxx.png"), "新建", menu)
+    new_action.triggered.connect(lambda: print("新建文件"))
+
+    open_action = QAction(QIcon("xxx.png"), "打开", menu)
+    open_action.triggered.connect(lambda: print("打开文件"))
+
+    exit_action = QAction("退出", menu)
+    exit_action.triggered.connect(lambda: print("退出程序"))
+
+    file_action = QAction("Python-GUI编程-PyQt5")
+
+    menu.addAction(new_action)
+    menu.addAction(open_action)
+    open_recent_menu.addAction(file_action)
+    menu.addMenu(open_recent_menu)
+    menu.addSeparator()
+    menu.addAction(exit_action)
+
+    # point
+    dest_point = window.mapToGlobal(point)
+    menu.exec_(dest_point)
+
+window.setContextMenuPolicy(Qt.CustomContextMenu)
+window.customContextMenuRequested.connect(show_menu)
